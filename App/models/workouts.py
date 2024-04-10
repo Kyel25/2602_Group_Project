@@ -8,7 +8,7 @@ class Workouts(db.Model):
     equipment = db.Column(db.String(120), nullable=False)
     level = db.Column(db.String(120), nullable=False)
     rating = db.Column(db.Float, nullable=True)
-    rating_desc = db.Column(db.String(120), nullable=False)
+    rating_desc = db.Column(db.String(120), nullable=True)
 
     def __init__(self, title, desc, body_part, equipment, level, rating, rating_desc):
         self.title = title
