@@ -2,20 +2,28 @@ from App.database import db
 
 class Routines(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
-    desc = db.Column(db.String, nullable=True)
-    body_part = db.Column(db.String(120), nullable=False)
-    equipment = db.Column(db.String(120), nullable=False)
-    level = db.Column(db.String(120), nullable=False)
-    rating = db.Column(db.Float, nullable=True)
-    rating_desc = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(120), nullable=False)
+    work_1 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_2 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_3 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_4 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_5 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_6 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_7 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_8 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_9 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
+    work_10 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=False)
 
-    def __init__(self, title, desc, body_part, equipment, level, rating, rating_desc):
-        self.title = title
-        self.desc - desc
-        self.body_part = body_part
-        self.equipment = equipment
-        self.level = level
-        self.rating = rating
-        self.rating_desc = rating_desc
+    def __init__(self, name, work_1, work_2, work_3, work_4, work_5, work_6, work_7, work_8, work_9, work_10):
+        self.name = name
+        self.work_1 = work_1
+        self.work_2 = work_2
+        self.work_3 = work_3
+        self.work_4 = work_4
+        self.work_5 = work_5
+        self.work_6 = work_6
+        self.work_7 = work_7
+        self.work_8 = work_8
+        self.work_9 = work_9
+        self.work_10 = work_10
         
