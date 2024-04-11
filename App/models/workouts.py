@@ -19,3 +19,5 @@ class Workouts(db.Model):
         self.level = level
         self.rating = rating
         self.rating_desc = rating_desc
+
+    def __repr__(self):
