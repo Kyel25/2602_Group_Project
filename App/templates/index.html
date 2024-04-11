@@ -1,13 +1,61 @@
-{% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
 
-{{ super() }}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Planner</title>
+ 
+</head>
 
-{% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-{% endblock %}
+<body>
+  <header>
+    <h1>Workout Planner</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#browse" class="nav-link">Browse Workouts</a></li>
+        <li><a href="#create" class="nav-link">Create Routine</a></li>
+        <li><a href="#view-edit" class="nav-link">View/Edit Routine</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="user-info" class="section">
+      <h2>User Information</h2>
+      <p>Welcome, <strong>{{current_user.username}}</strong>! Here is some information about your account:</p>
+      <ul>
+        <li><strong>Username:</strong> {{current_user.username}}</li>
+        <li><strong>Email:</strong> {{current_user.email}}</li>
+        <!-- Add more user information as needed -->
+      </ul>
+    </section>
+
+    <section id="browse" class="section">
+      <h2>Browse Workouts</h2>
+      <p>Explore a variety of workouts to add to your routine. Whether you're looking for cardio, strength training, or flexibility exercises, you'll find something suitable here.</p>
+      <p>Click the button below to start browsing workouts.</p>
+      <a href="#" class="btn">Browse Workouts</a>
+    </section>
+
+    <section id="create" class="section">
+      <h2>Create Routine</h2>
+      <p>Create your personalized workout routine by adding workouts. Mix and match different exercises to target specific muscle groups or achieve your fitness goals.</p>
+      <p>Click the button below to start creating your routine.</p>
+      <a href="#" class="btn">Create Routine</a>
+    </section>
+
+    <section id="view-edit" class="section">
+      <h2>View/Edit Routine</h2>
+      <p>View and edit your existing workout routines. Keep track of your progress, make adjustments, and stay motivated on your fitness journey.</p>
+      <p>Click the button below to view or edit your routine.</p>
+      <a href="#" class="btn">View/Edit Routine</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; INFO 2602 Group Project</p>
+  </footer>
+</body>
+
+</html>
