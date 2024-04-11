@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gym Name Here</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gym Name Here</h1>
+        <form action="/login" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Sign Up">
+            
+            <div class="text-center p-t-12">
+                <a class="txt2" href="login">
+                    Already have an account?
+                </a>
+            </div>
+
+
+        </form>
+    </div>
+</body>
+</html>
