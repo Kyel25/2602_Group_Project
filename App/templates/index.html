@@ -1,95 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workout Planner</title>
- 
-</head>
-<style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
     body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #f0f0f0, #dddddd);
+    }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-}
+    header {
+      background: linear-gradient(to bottom, #333, #222);
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      border-bottom: 2px solid #ffca28;
+    }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
+    .nav-links {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #ffca28;
+    }
+
+    main {
+      padding: 40px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 20px;
+      width: calc(50% - 40px);
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card {
+      display: flex; /* Use flexbox */
+      flex-direction: column; /* Stack image and content vertically */
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .card-content {
+      padding: 20px; /* Add padding */
+    }
+
+    .card-content h2 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .card-content p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 20px; /* Add margin */
+    }
+
+    .btn:hover {
+      background-color: #ffca28;
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: linear-gradient(to bottom, #333, #222);
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      border-top: 2px solid #ffca28;
+    }
+section.user-info {
+      background: #f8f9fa;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    section.user-info h2 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    section.user-info ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    section.user-info ul li {
+      margin-bottom: 10px;
+    }
+
+    .bg-full-image {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Slides */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: fade 20s infinite;
+    }
+
+    /* Slide delay adjustment */
+    .slide:nth-of-type(1) {
+      animation-delay: 0s;
+    }
+
+    .slide:nth-of-type(2) {
+      animation-delay: 10s;
+    }
+
+    .slide:nth-of-type(3) {
+      animation-delay: 20s;
+    }
+
+    .slide:nth-of-type(4) {
+      animation-delay: 30s;
+    }
+
+    /* Hide radio buttons */
+    .slide-radio {
+      display: none;
+    }
+
+    /* Show slides based on radio button state */
+    .slide-radio:checked + .slide {
+      opacity: 1;
+      animation: none;
+    }
+
+    /* Directional arrows */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Fading animation */
+    @keyframes fade {
+      0% {
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      95% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
   text-align: center;
 }
 
-.nav-links {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+.quotes-container {
+  text-align: center; /* Center-align the quotes container */
 }
 
-.nav-links li {
+.one_fourth {
+  width: calc(25% - 20px); /* Adjust the width to fit four quotes side by side */
   display: inline-block;
-  margin-right: 20px;
+  margin-bottom: 20px; /* Add margin to separate the quotes */
+  vertical-align: top; /* Align the quotes to the top */
+  border-right: 1px solid #ccc; /* Add border to the right side */
+  padding-right: 10px; /* Add padding to create space between the border and text */
 }
 
-.nav-links li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease;
+.one_fourth:last-child {
+  border-right: none; /* Remove border from the last .one_fourth div */
 }
 
-.nav-links li a:hover {
-  color: #ffca28;
-}
 
-main {
-  padding: 40px 0;
-}
 
-.section {
-  background-color: #fff;
-  padding: 40px;
-  margin-bottom: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-  margin-top: 0;
-}
-
-.section p {
-  line-height: 1.6;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #ffca28;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-}
-
-</style>
+  </style>
+</head>
 <body>
   <header>
     <h1>Workout Planner</h1>
@@ -102,42 +280,201 @@ footer {
     </nav>
   </header>
 
+  <section class="user-info">
+    <h2>User Information</h2>
+    <ul>
+      <li><strong>Username:</strong> {{current_user.username}}</li>
+      <li><strong>Email:</strong> {{current_user.email}}</li>
+      <!-- Add more user information as needed -->
+    </ul>
+  </section>
+
   <main>
-    <section id="user-info" class="section">
-      <h2>User Information</h2>
-      <p>Welcome, <strong>{{current_user.username}}</strong>! Here is some information about your account:</p>
-      <ul>
-        <li><strong>Username:</strong> {{current_user.username}}</li>
-        <li><strong>Email:</strong> {{current_user.email}}</li>
-        <!-- Add more user information as needed -->
-      </ul>
+    <div class="slideshow-container">
+<!-- Slide 1 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-1" checked>
+<label for="slide-1" class="slide-label"></label>
+<div class="mySlides slide-1">
+  <div class="slide" style="background-image: url('https://wallpapers.com/images/hd/baki-hd-muscle-r1wteq7gm41vs9be.jpg')">
+    <div class="text">Text for Slide 1</div>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-2">
+<label for="slide-2" class="slide-label"></label>
+<div class="mySlides slide-2">
+  <div class="slide" style="background-image: url('https://wallpapers.com/images/hd/smiling-giga-chad-2uzbwfl2i4sbu16m.jpg')">
+    <div class="text">Text for Slide 2</div>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-3">
+<label for="slide-3" class="slide-label"></label>
+<div class="mySlides slide-3">
+  <div class="slide" style="background-image: url('https://i.pinimg.com/originals/1d/bf/bf/1dbfbffa46ca839ce031930e7955568b.jpg')">
+    <div class="text">Text for Slide 3</div>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-4">
+<label for="slide-4" class="slide-label"></label>
+<div class="mySlides slide-4">
+  <div class="slide" style="background-image: url('https://exeqserve.com/wp-content/uploads/2023/12/Blogs-2023-12-11T175442.140.png')">
+    <div class="text">Text for Slide 4</div>
+  </div>
+</div>
+    
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    
+      <!-- The dots/circles -->
+      <div class="dots">
+        <label class="dot" for="slide-1"></label>
+        <label class="dot" for="slide-2"></label>
+        <label class="dot" for="slide-3"></label>
+        <label class="dot" for="slide-4"></label>
+      </div>
+    </div>
+
+    <section id="browse" class="card">
+      <img src="https://media.30seconds.com/tip/lg/Fitness-Resolutions-for-the-New-Year-Heres-My-Challenge-to-17581-77e808a8cc-1544463097.jpg" alt="Browse Workouts">
+      <div class="card-content">
+        <h2>Browse Workouts</h2>
+        <p>Explore a variety of workouts to add to your routine. Whether you're looking for cardio, strength training, or flexibility exercises, you'll find something suitable here.</p>
+        <a href="#" class="btn">Browse Workouts</a>
+      </div>
     </section>
 
-    <section id="browse" class="section">
-      <h2>Browse Workouts</h2>
-      <p>Explore a variety of workouts to add to your routine. Whether you're looking for cardio, strength training, or flexibility exercises, you'll find something suitable here.</p>
-      <p>Click the button below to start browsing workouts.</p>
-      <a href="#" class="btn">Browse Workouts</a>
+    <section id="create" class="card">
+      <img src="https://t4.ftcdn.net/jpg/01/79/81/77/360_F_179817756_QzTocli57q9G6a1Oe7kJtoMS5dNMU8cl.jpg" alt="Create Routine">
+      <div class="card-content">
+        <h2>Create Routine</h2>
+        <p>Create your personalized workout routine by adding workouts. Mix and match different exercises to target specific muscle groups or achieve your fitness goals.</p>
+        <a href="#" class="btn">Create Routine</a>
+      </div>
     </section>
 
-    <section id="create" class="section">
-      <h2>Create Routine</h2>
-      <p>Create your personalized workout routine by adding workouts. Mix and match different exercises to target specific muscle groups or achieve your fitness goals.</p>
-      <p>Click the button below to start creating your routine.</p>
-      <a href="#" class="btn">Create Routine</a>
+    <section id="view-edit" class="card">
+      <img src="https://paramountacceptance.com/wp-content/uploads/2021/11/blog-images-3.png" alt="View/Edit Routine">
+      <div class="card-content">
+        <h2>View/Edit Routine</h2>
+        <p>View and edit your existing workout routines. Keep track of your progress, make adjustments, and stay motivated on your fitness journey.</p>
+        <a href="#" class="btn">View/Edit Routine</a>
+      </div>
     </section>
 
-    <section id="view-edit" class="section">
-      <h2>View/Edit Routine</h2>
-      <p>View and edit your existing workout routines. Keep track of your progress, make adjustments, and stay motivated on your fitness journey.</p>
-      <p>Click the button below to view or edit your routine.</p>
-      <a href="#" class="btn">View/Edit Routine</a>
+    <!-- BMI Calculator Section -->
+    <section id="bmi" class="card">
+      <img src="https://img.freepik.com/premium-photo/unyielding-determination-obese-man-lifting-weights-with-focused-resolve_937226-548.jpg" alt="BMI Calculator">
+      <div class="card-content">
+        <h2>BMI Calculator</h2>
+        <p>Calculate your Body Mass Index (BMI) to assess your body composition and track your health progress.</p>
+        <a href="#" class="btn">Calculate BMI</a>
+      </div>
     </section>
+
+    <hr>
+<div class="quotes-container">
+  <div class="one_fourth">
+    <p class="quote">&ldquo;The only bad workout is the one that didn't happen.&rdquo;
+      <br>
+      <em>―Unknown</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;Strength does not come from physical capacity. It comes from an indomitable will.&rdquo;
+      <br>
+      <em>―Mahatma Gandhi</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;The last three or four reps is what makes the muscle grow. This area of pain divides a champion from someone who is not a champion.&rdquo;
+      <br>
+      <em>―Arnold Schwarzenegger</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;Fitness is not about being better than someone else. It's about being better than you used to be.&rdquo;
+      <br>
+      <em>―Unknown</em>
+    </p>
+  </div>
+</div>
+
+    <hr>
   </main>
 
   <footer>
     <p>&copy; INFO 2602 Group Project</p>
   </footer>
-</body>
 
+  <script>
+var slideIndex = 0;
+var slides = document.querySelectorAll('.mySlides');
+var dots = document.querySelectorAll('.dot');
+var slideTimeout; // Declare slideTimeout variable
+
+showSlides();
+
+function showSlides() {
+  // Set slideIndex to 0 to display the first slide
+  slideIndex = 0;
+  showSlide(slideIndex);
+}
+
+function showSlide(n) {
+  var i;
+  if (n >= slides.length) {slideIndex = 0}
+  if (n < 0) {slideIndex = slides.length - 1}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  slides[slideIndex].style.display = "block";
+  slides[slideIndex].style.opacity = 1; // Ensure opacity is set to 1 for the current slide
+  // Automatically transition to the next slide after 5 seconds
+  slideTimeout = setTimeout(function() {
+    plusSlides(1);
+  }, 5000); // Adjust the interval as needed (in milliseconds)
+}
+
+function currentSlide(n) {
+  clearTimeout(slideTimeout);
+  // Hide all slides
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.opacity = 0;
+  }
+  slideIndex = n;
+  // Display the current slide
+  slides[slideIndex].style.opacity = 1;
+  showDot(slideIndex);
+}
+
+function plusSlides(n) {
+  clearTimeout(slideTimeout);
+  showSlide(slideIndex += n);
+}
+
+function showDot(n) {
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].classList.remove("active");
+  }
+  dots[n].classList.add("active");
+}
+
+// Add event listeners to radio buttons
+document.querySelectorAll('.slide-radio').forEach(function(radio, index) {
+  radio.addEventListener('click', function() {
+    currentSlide(index);
+  });
+});
+
+// Start the automatic slideshow
+showSlide(slideIndex);
+
+  </script>
+</body>
 </html>
