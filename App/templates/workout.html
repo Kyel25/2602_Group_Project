@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filter Routines</title>
+    <title>Filter Workouts</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,7 +43,7 @@
             cursor: pointer;
         }
 
-        .routine-item {
+        .workout-item {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
@@ -51,17 +51,17 @@
             background-color: #f9f9f9;
         }
 
-        .routine-item-title {
+        .workout-item-title {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 5px;
         }
 
-        .routine-item-description {
+        .workout-item-description {
             margin-bottom: 10px;
         }
 
-        .routine-item-meta {
+        .workout-item-meta {
             font-size: 14px;
             color: #666;
         }
@@ -69,9 +69,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Filter Routines</h1>
+        <h1>Filter Workouts</h1>
 
-        <!-- Filter options -->
         <div class="filter-options">
             <select id="level-filter">
                 <option value="">Filter by Level</option>
@@ -96,8 +95,7 @@
                 <option value="Quadriceps">Quadriceps</option>
                 <option value="Shoulders">Shoulders</option>
                 <option value="Triceps">Triceps</option>
-         
-                <!-- Add more options as needed -->
+             
             </select>
             <select id="type-filter">
                 <option value="">Filter by Type</option>
@@ -108,19 +106,20 @@
                 <option value="Strongman">Strongman</option>
                 <option value="Powerlifitng">Powerlifitng</option>
                 <option value="Olympic Weightlifting">Olympic Weightlifting</option>
-        
-                <!-- Add more options as needed -->
+    
             </select>
             <button onclick="applyFilters()">Apply Filters</button>
         </div>
 
-        <!-- Routine items will be displayed here -->
-        <div id="routine-items">
-            {% for item in routines %}
-            <div class="routine-item">
-                <div class="routine-item-title">{{ item['Title'] }}</div>
-                <div class="routine-item-description">{{ item['Desc'] }}</div>
-                <div class="routine-item-meta">Type: {{ item['Type'] }} | BodyPart: {{ item['BodyPart'] }} | Equipment: {{ item['Equipment'] }} | Level: {{ item['Level'] }}</div>
+        <!-- Workout items will be displayed here -->
+        <div id="workout-items">
+            {% for item in workouts %}
+            <div class="workout-item">
+                <div class="workout-item-title">{{ item.title }}</div>
+                <div class="workout-item-description">{{ item.description }}</div>
+                <div class="workout-item-meta">Type: {{ item.type }} | Body Part: {{ item.body_part }} | Equipment: {{ item.equipment }} | Level: {{ item.level }}</div>
+                <div class="workout-rating">Rating: {{ item.rating }} | {{ item.rating_desc }}</div>
+
             </div>
             {% endfor %}
         </div>
@@ -128,37 +127,36 @@
 
     <script>
         function applyFilters() {
-            // Get selected filter values
             var level = document.getElementById("level-filter").value;
             var bodyPart = document.getElementById("body-part-filter").value;
             var type = document.getElementById("type-filter").value;
 
-            // Get routine items
-            var routineItems = document.getElementsByClassName("routine-item");
+            // Get workout items
+            var workoutItems = document.getElementsByClassName("workout-item");
 
-            // Loop through routine items and show/hide based on filters
-            for (var i = 0; i < routineItems.length; i++) {
-                var routineItem = routineItems[i];
-                var metaText = routineItem.getElementsByClassName("routine-item-meta")[0].textContent.toLowerCase();
+            // Loop through workout items and show/hide based on filters
+            for (var i = 0; i < workoutItems.length; i++) {
+                var workoutItem = workoutItems[i];
+                var metaText = workoutItem.querySelector(".workout-item-meta").textContent.toLowerCase();
 
                 var showItem = true;
 
-                // Check if routine item matches selected filters
+                // Check if workout item matches selected filters
                 if (level && !metaText.includes("level: " + level.toLowerCase())) {
                     showItem = false;
                 }
-                if (bodyPart && !metaText.includes("bodypart: " + bodyPart.toLowerCase())) {
+                if (bodyPart && !metaText.includes("body part: " + bodyPart.toLowerCase())) {
                     showItem = false;
                 }
                 if (type && !metaText.includes("type: " + type.toLowerCase())) {
                     showItem = false;
                 }
 
-                // Show or hide routine item based on filters
+                // Show or hide workout item based on filters
                 if (showItem) {
-                    routineItem.style.display = "block";
+                    workoutItem.style.display = "block";
                 } else {
-                    routineItem.style.display = "none";
+                    workoutItem.style.display = "none";
                 }
             }
         }
