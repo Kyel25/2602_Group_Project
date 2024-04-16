@@ -12,6 +12,10 @@ def login_page():
 @index_views.route('/home', methods=['GET'])
 def home_page():
     return render_template('index.html')
+
+# @index_views.route('/routine', methods=['GET']) #doesnt work
+# def routine_page():
+#     return render_template('routine.html')
     
 @index_views.route('/init', methods=['GET'])
 def init():

@@ -7,6 +7,8 @@ from App.controllers import (
     login
 )
 
+from App.models import workouts
+
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 
 
@@ -43,6 +45,13 @@ def logout_action():
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response
+
+# @auth_views.route('/routine', methods=['GET'])   doesnt work
+# def display_routines():
+#     response = redirect(url_for('index_views.routine_page'))
+#     return response
+
+
 
 '''
 API Routes

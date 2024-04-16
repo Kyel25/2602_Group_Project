@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Routines</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-options {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-options select {
+            padding: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .filter-options button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .routine-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .routine-item-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .routine-item-description {
+            margin-bottom: 10px;
+        }
+
+        .routine-item-meta {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filter Routines</h1>
+
+        <!-- Filter options -->
+        <div class="filter-options">
+            <select id="level-filter">
+                <option value="">Filter by Level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+            <select id="body-part-filter">
+                <option value="">Filter by Body Part</option>
+                <option value="Chest">Chest</option>
+                <option value="Abdominals">Abdominals</option>
+                <option value="Adductors">Adductors</option>
+                <option value="Calves">Calves</option>
+                <option value="Forearms">Forearms</option>
+                <option value="Glutes">Glutes</option>
+                <option value="Hamstrings">Hamstrings</option>
+                <option value="Lats">Lats</option>
+                <option value="Lower Back">Lower Back</option>
+                <option value="Middle Back">Middle Back</option>
+                <option value="Traps">Traps</option>
+                <option value="Neck">Neck</option>
+                <option value="Quadriceps">Quadriceps</option>
+                <option value="Shoulders">Shoulders</option>
+                <option value="Triceps">Triceps</option>
+         
+                <!-- Add more options as needed -->
+            </select>
+            <select id="type-filter">
+                <option value="">Filter by Type</option>
+                <option value="Strength">Strength</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Stretching">Stretching</option>
+                <option value="Plyometrics">Plyometrics</option>
+                <option value="Strongman">Strongman</option>
+                <option value="Powerlifitng">Powerlifitng</option>
+                <option value="Olympic Weightlifting">Olympic Weightlifting</option>
+        
+                <!-- Add more options as needed -->
+            </select>
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!-- Routine items will be displayed here -->
+        <div id="routine-items">
+            {% for item in routines %}
+            <div class="routine-item">
+                <div class="routine-item-title">{{ item['Title'] }}</div>
+                <div class="routine-item-description">{{ item['Desc'] }}</div>
+                <div class="routine-item-meta">Type: {{ item['Type'] }} | BodyPart: {{ item['BodyPart'] }} | Equipment: {{ item['Equipment'] }} | Level: {{ item['Level'] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function applyFilters() {
+            // Get selected filter values
+            var level = document.getElementById("level-filter").value;
+            var bodyPart = document.getElementById("body-part-filter").value;
+            var type = document.getElementById("type-filter").value;
+
+            // Get routine items
+            var routineItems = document.getElementsByClassName("routine-item");
+
+            // Loop through routine items and show/hide based on filters
+            for (var i = 0; i < routineItems.length; i++) {
+                var routineItem = routineItems[i];
+                var metaText = routineItem.getElementsByClassName("routine-item-meta")[0].textContent.toLowerCase();
+
+                var showItem = true;
+
+                // Check if routine item matches selected filters
+                if (level && !metaText.includes("level: " + level.toLowerCase())) {
+                    showItem = false;
+                }
+                if (bodyPart && !metaText.includes("bodypart: " + bodyPart.toLowerCase())) {
+                    showItem = false;
+                }
+                if (type && !metaText.includes("type: " + type.toLowerCase())) {
+                    showItem = false;
+                }
+
+                // Show or hide routine item based on filters
+                if (showItem) {
+                    routineItem.style.display = "block";
+                } else {
+                    routineItem.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
