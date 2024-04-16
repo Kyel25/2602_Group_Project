@@ -22,10 +22,10 @@ def login_page():
 def home_page():
     return render_template('index.html')
 
-@index_views.route('/routine', methods=['GET'])
+@index_views.route('/workout', methods=['GET'])
 def routine_page():
     # workouts = list_all_workouts()
-    return render_template('routine.html')
+    return render_template('workout.html')
     
 @index_views.route('/init', methods=['GET'])
 def init():
