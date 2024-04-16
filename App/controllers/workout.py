@@ -8,7 +8,7 @@ def parse_workouts():
         for row in reader:
             workout = Workouts(title=row['Title'],
                 description = row['Desc'],
-                type = row['Type'],
+                type_ = row['Type'],
                 body_part = row['BodyPart'],
                 equipment = row['Equipment'],
                 level = row['Level'],
@@ -26,7 +26,7 @@ def list_workouts_by_type(type):
     return workouts_by_type
 
 def list_workouts_by_body_part(body_part):
-    workouts_by_type = Workouts.query.filter_by(body_pary=body_part).all()
+    workouts_by_type = Workouts.query.filter_by(body_part=body_part).all()
     return list_workouts_by_body_part
 
 def list_workouts_by_level(level):

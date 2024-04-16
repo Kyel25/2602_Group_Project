@@ -24,8 +24,9 @@ def home_page():
 
 @index_views.route('/workout', methods=['GET'])
 def routine_page():
-    # workouts = list_all_workouts()
-    return render_template('workout.html')
+    workouts = list_all_workouts()
+
+    return render_template('workout.html', workouts = workouts)
     
 @index_views.route('/init', methods=['GET'])
 def init():

@@ -113,15 +113,15 @@
 
         <!-- Workout items will be displayed here -->
         <div id="workout-items">
-            {% for item in workouts %}
+            {% for workout in workouts %}
             <div class="workout-item">
-                <div class="workout-item-title">{{ item.title }}</div>
-                <div class="workout-item-description">{{ item.description }}</div>
-                <div class="workout-item-meta">Type: {{ item.type }} | Body Part: {{ item.body_part }} | Equipment: {{ item.equipment }} | Level: {{ item.level }}</div>
-                <div class="workout-rating">Rating: {{ item.rating }} | {{ item.rating_desc }}</div>
-
+                <div class="workout-item-title">{{ workout.title }}</div>
+                <div class="workout-item-description">{{ workout.description }}</div>
+                <div class="workout-item-meta">Type: {{ workout.type }} | Body Part: {{ workout.body_part }} | Equipment: {{ workout.equipment }} | Level: {{ workout.level }}</div>
+                <!-- <div class="workout-rating">Rating: {{ workout.rating }} | {{ workout.rating_desc }}</div> -->
             </div>
             {% endfor %}
+            
         </div>
     </div>
 

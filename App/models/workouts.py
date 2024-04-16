@@ -3,7 +3,7 @@ from App.database import db
 class Workouts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
-    type = db.Column(db.String(80), nullable=True)
+    type_ = db.Column(db.String(80), nullable=True)
     description = db.Column(db.String, nullable=True)
     body_part = db.Column(db.String(80), nullable=False)
     equipment = db.Column(db.String(80), nullable=False)
@@ -12,10 +12,10 @@ class Workouts(db.Model):
     rating_desc = db.Column(db.String(120), nullable=True)
     # routine_id = db.Column(db.Integer, db.ForeignKey('routine.id'), nullable=False)
 
-    def __init__(self, title, description, type, body_part, equipment, level, rating, rating_desc):
+    def __init__(self, title, description, type_, body_part, equipment, level, rating, rating_desc):
         self.title = title
         self.description = description
-        self.type_ = type
+        self.type_ = type_
         self.body_part = body_part
         self.equipment = equipment
         self.level = level
@@ -27,7 +27,7 @@ class Workouts(db.Model):
             'id': self.id,
             'title': self.title,
             'description': self.description,
-            'type': self.type,
+            'type': self.type_,
             'body part': self.body_part,
             'equipment': self.equipment,
             'level': self.level,
