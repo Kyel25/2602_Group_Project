@@ -1,6 +1,8 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
 from App.models import db
+from App.controllers import create_routine
+
 from App.controllers import(
     create_user, 
     list_all_workouts, 
@@ -34,6 +36,42 @@ def workout_page():
 @jwt_required()
 def routine_page():
     return render_template('routine.html')
+
+@index_views.route('/create-routine', methods=['POST'])
+@jwt_required()
+def create_routine_route():
+    name = request.form.get('routine-name')
+    new_routine = create_routine(name)
+    if new_routine:
+        return jsonify(message="Routine created successfully"), 201
+    else:
+        return jsonify(message="Failed to create routine"), 400
+
+@index_views.route('/edit-routine', methods=['POST'])
+@jwt_required()
+def edit_routine_route():
+    routine_id = request.form.get('routine-id')
+    routine = get_routine_by_id(routine_id)
+    if routine:
+        pass
+    else:
+        return jsonify(message="Routine not found"), 404
+
+@index_views.route('/delete-routine', methods=['POST'])
+@jwt_required()
+def delete_routine_route():
+    routine_id = request.form.get('routine-id')
+    routine = get_routine_by_id(routine_id)
+    if routine:
+        pass
+    else:
+        return jsonify(message="Routine not found"), 404
+
+
+
+
+
+
     
 @index_views.route('/init', methods=['GET'])
 def init():
