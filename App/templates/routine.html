@@ -12,6 +12,29 @@
             background-color: #f4f4f4;
         }
 
+        .navbar {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed; /* Add position fixed */
+    width: 100%; /* Occupy full width */
+    top: 0; /* Position it at the top */
+    z-index: 999; /* Ensure it appears above other elements */
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -69,6 +92,10 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/workout">Add Workout</a>
+    </div>
     <div class="container">
         <h1>{{user.username}}'s Routines</h1>
         <form class="routine-form" action="/create-routine" method="POST">
