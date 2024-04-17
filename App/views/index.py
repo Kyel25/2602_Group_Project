@@ -19,14 +19,21 @@ def login_page():
     return render_template('login.html')
 
 @index_views.route('/home', methods=['GET'])
+@jwt_required()
 def home_page():
     return render_template('index.html')
 
 @index_views.route('/workout', methods=['GET'])
-def routine_page():
+@jwt_required()
+def workout_page():
     workouts = list_all_workouts()
 
     return render_template('workout.html', workouts = workouts)
+
+@index_views.route('/routine', methods=['GET'])
+@jwt_required()
+def routine_page():
+    return render_template('routine.html')
     
 @index_views.route('/init', methods=['GET'])
 def init():
