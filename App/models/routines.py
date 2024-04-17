@@ -14,16 +14,6 @@ class Routines(db.Model):
     work_9 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=True)
     work_10 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=True)
 
-    def __init__(self, name, work_1, work_2, work_3, work_4, work_5, work_6, work_7, work_8, work_9, work_10):
+    def __init__(self, name):
         self.name = name
-        self.work_1 = work_1
-        self.work_2 = work_2
-        self.work_3 = work_3
-        self.work_4 = work_4
-        self.work_5 = work_5
-        self.work_6 = work_6
-        self.work_7 = work_7
-        self.work_8 = work_8
-        self.work_9 = work_9
-        self.work_10 = work_10
         

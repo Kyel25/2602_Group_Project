@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Routine Management</h1>
+        <h1>{{user.username}}'s Routines</h1>
         <form class="routine-form" action="/create-routine" method="POST">
             <input type="text" id="routine-name" name="routine-name" placeholder="Enter routine name" required>
             <button type="submit">Create Routine</button>
@@ -84,8 +84,7 @@
                         <input type="hidden" name="routine-id" value="{{ routine.id }}">
                         <button type="submit">Edit</button>
                     </form>
-                    <form action="/delete-routine" method="POST">
-                        <input type="hidden" name="routine-id" value="{{ routine.id }}">
+                    <form action="/delete-routine/{{routine.id}}" method="GET">
                         <button type="submit">Delete</button>
                     </form>
                 </div>
