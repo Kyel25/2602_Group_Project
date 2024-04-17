@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
 from App.models import db
+from App.controllers.calculator import calculate_bmr, calculate_daily_calories
 
 from App.controllers import(
     create_user, 
@@ -70,3 +71,22 @@ def health_check():
 def get_workouts_action():
     workouts = list_all_workouts_json()
     return jsonify(workouts)
+
+@index_views.route('/calculate', methods=['POST'])
+def calculate():
+    if request.method == 'POST':
+        weight = float(request.form['weight'])
+        height = float(request.form['height'])
+        age = int(request.form['age'])
+        sex = request.form['sex']
+        activity_level = request.form['activity_level']
+
+        bmr = calculate_bmr(weight, height, age, sex)
+        calories = calculate_daily_calories(bmr, activity_level)
+
+        return render_template('result.html', calories=calories)
+    
+
+@index_views.route('/result')
+def results():
+    return render_template('result.html')
