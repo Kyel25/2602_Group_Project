@@ -20,5 +20,6 @@ def calculate_daily_calories(bmr, activity_level):
     return calories
 
 def calculate_bmi(weight, height):
-    bmi = weight / (height ** 2)
-    return bmi
+    bmi = (weight / (height ** 2)) * 703
+    bmi_rounded = round(bmi, 1)
+    return bmi_rounded
