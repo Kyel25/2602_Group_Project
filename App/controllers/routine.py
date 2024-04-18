@@ -18,11 +18,15 @@ def list_all_routines():
     return routines
 
 def get_routine_by_id(id):
-    routine = routines.query.filter_by(id=id).first()
+    routine = Routines.query.filter_by(id=id).first()
     if routine:
         return routine
     else:
         return None
 
-
+def update_routine(id, new_name):
+    routine = Routines.query.get(id)
+    if routine and new_name is not None:
+        routine.name = new_name
+        db.session.commit()
 

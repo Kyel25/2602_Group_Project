@@ -105,13 +105,14 @@
         <div id="routine-list">
             {% for routine in routines %}
             <div class="routine-item">
-                <div class="routine-item-name">{{ routine.name }}</div>
+                <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
                 <div class="routine-item-actions">
-                    <form action="/edit-routine" method="POST">
+                    <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
                         <input type="hidden" name="routine-id" value="{{ routine.id }}">
-                        <button type="submit">Edit</button>
+                        <input type="text" name="new-name" placeholder="Enter new name" required>
+                        <button type="submit">Update</button>
                     </form>
-                    <form action="/delete-routine/{{routine.id}}" method="GET">
+                    <form action="/delete-routine/{{ routine.id }}" method="GET">
                         <button type="submit">Delete</button>
                     </form>
                 </div>

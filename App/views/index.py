@@ -13,11 +13,16 @@ from App.controllers import(
     list_all_routines,
     get_routine_by_id,
     create_routine,
-    delete_routine
+    delete_routine,
+    update_routine
 )
 
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
+
+@index_views.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({'status':'healthy'})
 
 @index_views.route('/', methods=['GET'])
 def login_page():
@@ -27,7 +32,15 @@ def login_page():
 @jwt_required()
 def home_page():
     return render_template('index.html')
+    
+@index_views.route('/init', methods=['GET'])
+def init():
+    db.drop_all()
+    db.create_all()
+    create_user('bob', 'bobpass')
+    return jsonify(message='db initialized!')
 
+#Workouts
 @index_views.route('/workout', methods=['GET'])
 @jwt_required()
 def workout_page():
@@ -35,6 +48,27 @@ def workout_page():
 
     return render_template('workout.html', workouts = workouts)
 
+@index_views.route('/api/workouts', methods=['GET'])
+def get_workouts_action():
+    workouts = list_all_workouts_json()
+    return jsonify(workouts)
+
+#Cal Counter
+@index_views.route('/calculate', methods=['POST'])
+def calculate():
+    if request.method == 'POST':
+        weight = float(request.form['weight'])
+        height = float(request.form['height'])
+        age = int(request.form['age'])
+        sex = request.form['sex']
+        activity_level = request.form['activity_level']
+
+        bmr = calculate_bmr(weight, height, age, sex)
+        calories = calculate_daily_calories(bmr, activity_level)
+
+        return render_template('result.html', calories=calories)
+
+#Routines
 @index_views.route('/routine', methods=['GET'])
 @jwt_required()
 def routine_page():
@@ -54,38 +88,14 @@ def create_routine_action():
 def delete_routine_action(id):
     delete_routine(id)
     return redirect(request.referrer)
-
     
-@index_views.route('/init', methods=['GET'])
-def init():
-    db.drop_all()
-    db.create_all()
-    create_user('bob', 'bobpass')
-    return jsonify(message='db initialized!')
-
-@index_views.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({'status':'healthy'})
-
-@index_views.route('/api/workouts', methods=['GET'])
-def get_workouts_action():
-    workouts = list_all_workouts_json()
-    return jsonify(workouts)
-
-@index_views.route('/calculate', methods=['POST'])
-def calculate():
-    if request.method == 'POST':
-        weight = float(request.form['weight'])
-        height = float(request.form['height'])
-        age = int(request.form['age'])
-        sex = request.form['sex']
-        activity_level = request.form['activity_level']
-
-        bmr = calculate_bmr(weight, height, age, sex)
-        calories = calculate_daily_calories(bmr, activity_level)
-
-        return render_template('result.html', calories=calories)
-    
+@index_views.route('/edit-routine/<int:id>', methods=['POST'])
+@jwt_required()
+def edit_routine_action(id):
+    data = request.form
+    new_name = data.get('new-name')
+    update_routine(id, new_name)
+    return redirect(request.referrer) 
 
 @index_views.route('/result')
 def results():
