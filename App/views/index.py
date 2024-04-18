@@ -67,7 +67,7 @@ def calculate():
         calories = calculate_daily_calories(bmr, activity_level)
         mild_loss_calories, normal_loss_calories, extreme_loss_calories = calculate_daily_calories_loss(bmr, activity_level)
         mild_gain_calories, normal_gain_calories, extreme_gain_calories= calculate_daily_calories_gain(bmr, activity_level)
-        # Pass the function to the template
+        
         return render_template('result.html', bmr=bmr, calories=calories, calculate_daily_calories_loss=calculate_daily_calories_loss , calculate_daily_calories_gain = calculate_daily_calories_gain)
 
 #Routines

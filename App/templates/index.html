@@ -6,29 +6,34 @@
   <title>Workout Planner</title>
   <link rel="stylesheet" href="../static/index.css">
 
+
 </head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <body>
   <header>
-    <h1>Workout Planner</h1>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="/workout" class="nav-link">Browse Workouts</a></li>
-        <li><a href="/routine" class="nav-link">My Routines</a></li>
-        <!-- <li><a href="#view-edit" class="nav-link">View/Edit Routine</a></li> -->
-      </ul>
-      <a href="/logout" class="btn">Logout</a>
-    </nav>
+    <div class="container">
+      <h1>Workout Planner</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/workout" class="nav-link">Browse Workouts</a></li>
+          <li><a href="/routine" class="nav-link">My Routines</a></li>
+          <li><a href="/result" class="nav-link">Calorie Calculator</a></li>
+          <li><a href="/bmi" class="nav-link">BMI Calculator</a></li>
+          <li><button class="settings-btn material-icons" onclick="toggleSettings()">perm_identity</button></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-
-  <section class="user-info">
-    <h2>User Information</h2>
-    <ul>
-      <li><strong>Username:</strong> {{current_user.username}}</li>
-      <li><strong>Email:</strong> {{current_user.email}}</li>
-      <!-- Add more user information as needed -->
-    </ul>
-  </section>
-
+  
+  <div id="settings-popup" class="settings-popup">
+    <div class="settings-content">
+      <span class="close-btn" onclick="toggleSettings()">×</span> <!-- Close button -->
+      <span class="username">Currently logged in as : {{current_user.username}}</span>
+      <a href="/logout" class="btn">Logout</a>
+    </div>
+  </div>
+  
   <main>
     <div class="slideshow-container">
 <!-- Slide 1 -->
@@ -81,43 +86,51 @@
     </div>
 
     <section id="browse" class="card">
-      <img src="https://media.30seconds.com/tip/lg/Fitness-Resolutions-for-the-New-Year-Heres-My-Challenge-to-17581-77e808a8cc-1544463097.jpg" alt="Browse Workouts">
+      <a href="/workout">
+        <img src="https://media.30seconds.com/tip/lg/Fitness-Resolutions-for-the-New-Year-Heres-My-Challenge-to-17581-77e808a8cc-1544463097.jpg" alt="Browse Workouts">
+      </a>
       <div class="card-content">
         <h2>Browse Workouts</h2>
         <p>Explore a variety of workouts to add to your routine. Whether you're looking for cardio, strength training, or flexibility exercises, you'll find something suitable here.</p>
         <a href="/workout" class="btn">Browse Workouts</a>
       </div>
     </section>
-
+    
     <section id="create" class="card">
-      <img src="https://t4.ftcdn.net/jpg/01/79/81/77/360_F_179817756_QzTocli57q9G6a1Oe7kJtoMS5dNMU8cl.jpg" alt="Create Routine">
+      <a href="/routine">
+        <img src="https://t4.ftcdn.net/jpg/01/79/81/77/360_F_179817756_QzTocli57q9G6a1Oe7kJtoMS5dNMU8cl.jpg" alt="Create Routine">
+      </a>
       <div class="card-content">
         <h2>My Routines</h2>
         <p>Create your personalized workout routine by adding workouts. Mix and match different exercises to target specific muscle groups or achieve your fitness goals.</p>
         <a href="/routine" class="btn">My Routines</a>
       </div>
     </section>
-
+    
     <section id="view-edit" class="card">
-      <img src="https://paramountacceptance.com/wp-content/uploads/2021/11/blog-images-3.png" alt="View/Edit Routine">
+      <a href="/result">
+        <img src="https://paramountacceptance.com/wp-content/uploads/2021/11/blog-images-3.png" alt="View/Edit Routine">
+      </a>
       <div class="card-content">
         <h2>Calorie Calculator</h2>
-        <p>Calculate the ideal amount of calories you need to comsume per day to have an easier time figuring out your fitness goals.</p>
+        <p>Utilize our calorie calculator to precisely determine your daily caloric requirements, facilitating a clearer path to achieving your fitness objectives with greater ease.</p>
         <a href="/result" class="btn">Calculate</a>
       </div>
     </section>
-
-    <!-- BMI Calculator Section -->
+    
     <section id="bmi" class="card">
-      <img src="https://img.freepik.com/premium-photo/unyielding-determination-obese-man-lifting-weights-with-focused-resolve_937226-548.jpg" alt="BMI Calculator">
+      <a href="/bmi">
+        <img src="https://img.freepik.com/premium-photo/unyielding-determination-obese-man-lifting-weights-with-focused-resolve_937226-548.jpg" alt="BMI Calculator">
+      </a>
       <div class="card-content">
         <h2>BMI Calculator</h2>
         <p>Calculate your Body Mass Index (BMI) to assess your body composition and track your health progress.</p>
         <a href="/bmi" class="btn">Calculate BMI</a>
       </div>
     </section>
+    
 
-    <hr>
+    
 <div class="quotes-container">
   <div class="one_fourth">
     <p class="quote">&ldquo;The only bad workout is the one that didn't happen.&rdquo;
@@ -144,77 +157,90 @@
     </p>
   </div>
 </div>
-
-    <hr>
   </main>
 
   <footer>
     <p>&copy; INFO 2602 Group Project</p>
   </footer>
 
+
   <script>
-var slideIndex = 0;
-var slides = document.querySelectorAll('.mySlides');
-var dots = document.querySelectorAll('.dot');
-var slideTimeout; // Declare slideTimeout variable
-
-showSlides();
-
-function showSlides() {
-  // Set slideIndex to 0 to display the first slide
-  slideIndex = 0;
-  showSlide(slideIndex);
-}
-
-function showSlide(n) {
-  var i;
-  if (n >= slides.length) {slideIndex = 0}
-  if (n < 0) {slideIndex = slides.length - 1}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+   function toggleSettings() {
+  var popup = document.getElementById("settings-popup");
+  if (popup.style.display === "block") {
+    popup.style.display = "none";
+  } else {
+    popup.style.display = "block";
   }
-  slides[slideIndex].style.display = "block";
-  slides[slideIndex].style.opacity = 1; // Ensure opacity is set to 1 for the current slide
-  // Automatically transition to the next slide after 5 seconds
-  slideTimeout = setTimeout(function() {
-    plusSlides(1);
-  }, 5000); // Adjust the interval as needed (in milliseconds)
 }
-
-function currentSlide(n) {
-  clearTimeout(slideTimeout);
-  // Hide all slides
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.opacity = 0;
-  }
-  slideIndex = n;
-  // Display the current slide
-  slides[slideIndex].style.opacity = 1;
-  showDot(slideIndex);
-}
-
-function plusSlides(n) {
-  clearTimeout(slideTimeout);
-  showSlide(slideIndex += n);
-}
-
-function showDot(n) {
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].classList.remove("active");
-  }
-  dots[n].classList.add("active");
-}
-
-// Add event listeners to radio buttons
-document.querySelectorAll('.slide-radio').forEach(function(radio, index) {
-  radio.addEventListener('click', function() {
-    currentSlide(index);
-  });
-});
-
-// Start the automatic slideshow
-showSlide(slideIndex);
 
   </script>
+
+  <script>
+ 
+    var slideIndex = 0;
+    var slides = document.querySelectorAll('.mySlides');
+    var dots = document.querySelectorAll('.dot');
+    var slideTimeout; // Declare slideTimeout variable
+  
+    showSlides();
+  
+    function showSlides() {
+      // Set slideIndex to 0 to display the first slide
+      slideIndex = 0;
+      showSlide(slideIndex);
+    }
+  
+    function showSlide(n) {
+      var i;
+      if (n >= slides.length) {slideIndex = 0}
+      if (n < 0) {slideIndex = slides.length - 1}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      slides[slideIndex].style.display = "block";
+      slides[slideIndex].style.opacity = 1; // Ensure opacity is set to 1 for the current slide
+      // Automatically transition to the next slide after 5 seconds
+      slideTimeout = setTimeout(function() {
+        plusSlides(1);
+      }, 5000); // Adjust the interval as needed (in milliseconds)
+    }
+  
+    function currentSlide(n) {
+      clearTimeout(slideTimeout);
+      // Hide all slides
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.opacity = 0;
+      }
+      slideIndex = n;
+      // Display the current slide
+      slides[slideIndex].style.opacity = 1;
+      showDot(slideIndex);
+    }
+  
+    function plusSlides(n) {
+      clearTimeout(slideTimeout);
+      showSlide(slideIndex += n);
+    }
+  
+    function showDot(n) {
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active");
+      }
+      dots[n].classList.add("active");
+    }
+  
+    // Add event listeners to radio buttons
+    document.querySelectorAll('.slide-radio').forEach(function(radio, index) {
+      radio.addEventListener('click', function() {
+        currentSlide(index);
+      });
+    });
+  
+    // Start the automatic slideshow
+    showSlide(slideIndex);
+  </script>
+  
+
 </body>
 </html>
