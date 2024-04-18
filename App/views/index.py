@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
 from App.models import db
-from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi as calculate_bmi_function
+from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi
 from App.controllers import(
     create_user, 
     list_all_workouts, 
@@ -110,7 +110,6 @@ def calculate_bmi_route():
         weight = float(request.form['weight'])
         height = float(request.form['height'])
         
-        bmi = calculate_bmi_function(weight, height)
-        bmi_rounded = round(bmi, 1)
+        bmi, category = calculate_bmi(weight, height)
 
-        return render_template('bmi.html', bmi=bmi_rounded)
+        return render_template('bmi.html', bmi=bmi, category=category)

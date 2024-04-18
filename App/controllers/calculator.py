@@ -22,4 +22,14 @@ def calculate_daily_calories(bmr, activity_level):
 def calculate_bmi(weight, height):
     bmi = (weight / (height ** 2)) * 703
     bmi_rounded = round(bmi, 1)
-    return bmi_rounded
+
+    if bmi_rounded < 18.5:
+        category = 'Underweight'
+    elif 18.5 <= bmi_rounded <= 24.9:
+        category = 'Normal Weight'
+    elif 25 <= bmi_rounded <= 29.9:
+        category = 'Overweight'
+    else:
+        category = 'Obese'
+        
+    return bmi_rounded, category
