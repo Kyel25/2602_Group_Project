@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
 from App.models import db
-from App.controllers.calculator import calculate_bmr, calculate_daily_calories
+from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi
 
 from App.controllers import(
     create_user, 
@@ -100,3 +100,17 @@ def edit_routine_action(id):
 @index_views.route('/result')
 def results():
     return render_template('result.html')
+
+@index_views.route('/bmi', methods=['GET'])
+def bmi_page():
+    return render_template('bmi.html')
+
+@index_views.route('/calculate-bmi-route', methods=['POST'])
+def calculate_bmi_route():
+    if request.method == 'POST':
+        weight = float(request.form['weight'])
+        height = float(request.form['height'])
+        
+        bmi = calculate_bmi_function(weight, height)
+
+        return render_template('bmi.html', bmi=bmi)
