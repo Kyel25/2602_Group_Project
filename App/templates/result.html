@@ -7,65 +7,59 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
 
-        .navbar {
-            background-color: #343a40;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+.navbar {
+    background-color: #343a40;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        .navbar-container {
-            margin: auto;
-            max-width: 600px;
-            
-        }
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #343a40;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background-color: #343a40;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
+h2 {
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-align: center;
+}
 
-        h2 {
-            margin-bottom: 30px;
-            color: #ffffff;
-            text-align: center;
-        }
+label {
+    font-weight: bold;
+    color: #ffffff;
+}
 
-        label {
-            font-weight: bold;
-            color: #ffffff;
-        }
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #2d2d2d;
+    color: #ffffff;
+}
 
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ffffff;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #2d2d2d;
-            color: #ffffff;
-        }
+select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 24px;
+    padding-right: 40px;
+}
 
-        select {
-            appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            background-size: 24px;
-            padding-right: 40px;
-        }
-
-        .btn-primary {
+.btn-primary {
     background-color: #555;
     border-color: #555;
     padding: 12px 30px;
@@ -81,21 +75,47 @@
     border-color: #333;
 }
 
+/* Define styles for the result table */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #2d2d2d; /* Dark gray background for table */
+}
 
-        #results {
-            margin-top: 40px;
-            text-align: center;
-        }
+/* Define styles for table headers */
+.result-table th {
+    padding: 12px;
+    text-align: left;
+    background-color: #343a40; /* Dark header background */
+    color: #ffffff; /* White text color */
+    border-bottom: 2px solid #ddd; /* Bottom border */
+}
 
-        #results h2 {
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
+/* Define styles for table rows */
+.result-table tr {
+    background-color: #2d2d2d; /* Dark background for rows */
+}
 
-        #results p {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+/* Define styles for even rows */
+.result-table tr:nth-child(even) {
+    background-color: #343a40; /* Darker background for even rows */
+}
+
+/* Define styles for table cells */
+.result-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Bottom border */
+    color: #ffffff; /* White text color */
+}
+
+/* Define hover effect for table rows */
+.result-table tr:hover {
+    background-color: #555; /* Darker background on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
     </style>
 </head>
 <body>
@@ -138,13 +158,67 @@
             </div>
             <button type="submit" class="btn btn-primary">Calculate</button>
         </form>
+        <hr style="border-top: 1px solid #ffffff; margin: 30px 0;">
 
         <div id="results">
             {% if calories is defined %}
-                <h2>Calculated Results:</h2>
-                <p>BMR (Basal Metabolic Rate): {{ bmr }}</p>
-                <p>Daily Calories Needed: {{ calories }}</p>
-            {% endif %}
+            <h2>Calculated Results:</h2>
+            <p>BMR (Basal Metabolic Rate): {{ bmr }}</p>
+            <p>Daily Calories Needed To Maintain Weight: {{ calories }}</p>
+        
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Goal</th>
+                        <th>Calories Needed</th>
+                        <th>Change for Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if calories is defined %}
+                    {% with mild_loss_calories, normal_loss_calories, extreme_loss_calories = calculate_daily_calories_loss(bmr, activity_level) %}
+                    <tr>
+                        <td>Mild Weight Loss</td>
+                        <td>{{ mild_loss_calories }}</td>
+                        <td>Decrease by 9% (0.25 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Weight Loss</td>
+                        <td>{{ normal_loss_calories }}</td>
+                        <td>Decrease by 17% (0.5 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Extreme Weight Loss</td>
+                        <td>{{ extreme_loss_calories }}</td>
+                        <td>Decrease by 34% (1 kg per week)</td>
+                    </tr>
+                    {% endwith %}
+                    {% endif %}
+            
+                    {% if calories is defined %}
+                    {% with mild_gain_calories, normal_gain_calories, extreme_gain_calories = calculate_daily_calories_gain(bmr, activity_level) %}
+                    <tr>
+                        <td>Mild Weight Gain</td>
+                        <td>{{ mild_gain_calories }}</td>
+                        <td>Increase by 9% (0.25 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Weight Gain</td>
+                        <td>{{ normal_gain_calories }}</td>
+                        <td>Increase by 17% (0.5 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Extreme Weight Gain</td>
+                        <td>{{ extreme_gain_calories }}</td>
+                        <td>Increase by 34% (1 kg per week)</td>
+                    </tr>
+                    {% endwith %}
+                    {% endif %}
+                </tbody>
+            </table>
+            
+        {% endif %}
+        
         </div>
     </div>
 </body>

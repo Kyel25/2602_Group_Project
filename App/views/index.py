@@ -1,7 +1,8 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
 from App.models import db
-from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi
+from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi, calculate_daily_calories_loss, calculate_daily_calories_gain
+
 from App.controllers import(
     create_user, 
     list_all_workouts, 
@@ -64,8 +65,10 @@ def calculate():
 
         bmr = calculate_bmr(weight, height, age, sex)
         calories = calculate_daily_calories(bmr, activity_level)
-
-        return render_template('result.html', calories=calories)
+        mild_loss_calories, normal_loss_calories, extreme_loss_calories = calculate_daily_calories_loss(bmr, activity_level)
+        mild_gain_calories, normal_gain_calories, extreme_gain_calories= calculate_daily_calories_gain(bmr, activity_level)
+        # Pass the function to the template
+        return render_template('result.html', bmr=bmr, calories=calories, calculate_daily_calories_loss=calculate_daily_calories_loss , calculate_daily_calories_gain = calculate_daily_calories_gain)
 
 #Routines
 @index_views.route('/routine', methods=['GET'])
