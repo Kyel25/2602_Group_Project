@@ -4,6 +4,7 @@ class Routines(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     workouts = db.relationship('Workouts', backref='routine', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # work_1 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=True)
     # work_2 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=True)
     # work_3 = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=True, unique=True)

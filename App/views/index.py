@@ -45,8 +45,8 @@ def init():
 @jwt_required()
 def workout_page():
     workouts = list_all_workouts()
-
-    return render_template('workout.html', workouts = workouts)
+    routines = list_all_routines()
+    return render_template('workout.html', workouts = workouts, routines = routines)
 
 @index_views.route('/api/workouts', methods=['GET'])
 def get_workouts_action():
@@ -54,6 +54,10 @@ def get_workouts_action():
     return jsonify(workouts)
 
 #Cal Counter
+@index_views.route('/result')
+def results():
+    return render_template('result.html')
+    
 @index_views.route('/calculate', methods=['POST'])
 def calculate():
     if request.method == 'POST':
@@ -69,6 +73,8 @@ def calculate():
         mild_gain_calories, normal_gain_calories, extreme_gain_calories= calculate_daily_calories_gain(bmr, activity_level)
         
         return render_template('result.html', bmr=bmr, calories=calories, calculate_daily_calories_loss=calculate_daily_calories_loss , calculate_daily_calories_gain = calculate_daily_calories_gain)
+
+
 
 #Routines
 @index_views.route('/routine', methods=['GET'])
@@ -99,10 +105,7 @@ def edit_routine_action(id):
     update_routine(id, new_name)
     return redirect(request.referrer) 
 
-@index_views.route('/result')
-def results():
-    return render_template('result.html')
-
+#BMI
 @index_views.route('/bmi', methods=['GET'])
 def bmi_page():
     return render_template('bmi.html')

@@ -301,30 +301,23 @@ h1 {
                     <div class="workout-item-description">{{ workout.description }}</div>
                     <div class="workout-item-meta">Type: {{ workout.type }} | Body Part: {{ workout.bodypart }} | Equipment: {{ workout.equipment }} | Level: {{ workout.level }}</div>
                 </div>
-                <div class="add-to-routine-button material-icons" onclick="openPopup('{{ workout.title }}')">fitness_center</div>
+                <!-- <div class="add-to-routine-button material-icons">fitness_center</div> -->
+                
+                <div margin-left:40px>
+                    <form>
+                        <select>
+                            {%for routine in user.routines%}
+                            <option>{{routine.name}}</option>
+                            {%endfor%}
+                        </select>
+                        <button type="submit">Add to Workout</button>
+                    </form>
+                </div>
             </div>
             
             {% endfor %}
         </div>
         
-        <!-- Popup for selecting routines -->
-        <div id="popup" class="popup">
-            <div class="popup-content">
-                <span class="close" onclick="closePopup()">&times;</span>
-                <h2>Select Routine</h2>
-                <div class="routines">
-                    {% for routine in routines %}
-                    <div class="routine-item">
-                        <input type="checkbox" id="{{ routine.id }}" name="routine" value="{{ routine.id }}">
-                        <label for="{{ routine.id }}">{{ routine.name }}</label>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="submit-button">
-                    <button onclick="addToRoutine()">Add</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -379,24 +372,6 @@ h1 {
             }
         }
 
-        function openPopup(workoutTitle) {
-            document.getElementById("popup").style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
-
-        function addToRoutine() {
-            var selectedRoutines = [];
-            var checkboxes = document.querySelectorAll('input[name="routine"]:checked');
-            checkboxes.forEach(function(checkbox) {
-                selectedRoutines.push(checkbox.value);
-            });
-            console.log(selectedRoutines);
-            // Here you can send selectedRoutines to the backend for further processing
-            closePopup(); // Close the popup after adding to routine
-        }
     </script>
 </body>
 </html>
