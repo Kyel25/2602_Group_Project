@@ -107,7 +107,16 @@
             {% if user.id == routine.user_id%}
             <div class="routine-item">
                 <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
-                <div>{{routine.work_1}}</div>
+                <div>Workout 1 - {{routine.work_1}}</div>
+                <div>Workout 2 - {{routine.work_2}}</div>
+                <div>Workout 3 - {{routine.work_3}}</div>
+                <div>Workout 4 - {{routine.work_4}}</div>
+                <div>Workout 5 - {{routine.work_5}}</div>
+                <div>Workout 6 - {{routine.work_6}}</div>
+                <div>Workout 7 - {{routine.work_7}}</div>
+                <div>Workout 8 - {{routine.work_8}}</div>
+                <div>Workout 9 - {{routine.work_9}}</div>
+                <div>Workout 10 - {{routine.work_10}}</div>
                 <div class="routine-item-actions">
                     <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
                         <input type="hidden" name="routine-id" value="{{ routine.id }}">

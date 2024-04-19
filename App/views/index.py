@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
+from flask import Blueprint, flash, redirect, render_template, request, send_from_directory, jsonify, url_for
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies
-from App.models import db
+from App.models import db, Routines, Workouts
 from App.controllers.calculator import calculate_bmr, calculate_daily_calories, calculate_bmi, calculate_daily_calories_loss, calculate_daily_calories_gain
 
 from App.controllers import(
@@ -14,7 +14,8 @@ from App.controllers import(
     get_routine_by_id,
     create_routine,
     delete_routine,
-    update_routine
+    update_routine,
+    add_workout_to_routine
 )
 
 
@@ -47,6 +48,13 @@ def workout_page():
     workouts = list_all_workouts()
     routines = list_all_routines()
     return render_template('workout.html', workouts = workouts, routines = routines, user = current_user)
+
+@index_views.route('/add-workout/<int:id>', methods=['POST'])
+@jwt_required()
+def add_workouts_action(id):
+    data = request.form
+    add_workout_to_routine(data['workout_num'], data['routine_id'], id)
+    return redirect(url_for('index_views.routine_page'))
 
 @index_views.route('/api/workouts', methods=['GET'])
 def get_workouts_action():

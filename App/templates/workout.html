@@ -304,13 +304,25 @@ h1 {
                 <!-- <div class="add-to-routine-button material-icons">fitness_center</div> -->
                 
                 <div margin-left:40px>
-                    <form>
-                        <select>
+                    <form id="add-workout-form" action="/add-workout/{{workout.id}}" method="post">
+                        <select id="workout-to-add" name="routine_id">
                             {%for routine in user.routines%}
-                            <option>{{routine.name}}</option>
+                            <option value="{{routine.id}}">{{routine.name}}</option>
                             {%endfor%}
                         </select>
-                        <button type="submit">Add to Workout</button>
+                        <select id="workout-to-edit" name="workout_num">
+                            <option value="1">Workout 1</option>
+                            <option value="2">Workout 2</option>
+                            <option value="3">Workout 3</option>
+                            <option value="4">Workout 4</option>
+                            <option value="5">Workout 5</option>
+                            <option value="6">Workout 6</option>
+                            <option value="7">Workout 7</option>
+                            <option value="8">Workout 8</option>
+                            <option value="9">Workout 9</option>
+                            <option value="10">Workout 10</option>
+                        </select>
+                        <button id="add-workout-submit" type="submit">Add to Workout</button>
                     </form>
                 </div>
             </div>
