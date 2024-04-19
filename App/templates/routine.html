@@ -104,8 +104,10 @@
         </form>
         <div id="routine-list">
             {% for routine in routines %}
+            {% if user.id == routine.user_id%}
             <div class="routine-item">
                 <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
+                <div>{{routine.work_1}}</div>
                 <div class="routine-item-actions">
                     <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
                         <input type="hidden" name="routine-id" value="{{ routine.id }}">
@@ -117,6 +119,7 @@
                     </form>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

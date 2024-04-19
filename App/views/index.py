@@ -46,7 +46,7 @@ def init():
 def workout_page():
     workouts = list_all_workouts()
     routines = list_all_routines()
-    return render_template('workout.html', workouts = workouts, routines = routines)
+    return render_template('workout.html', workouts = workouts, routines = routines, user = current_user)
 
 @index_views.route('/api/workouts', methods=['GET'])
 def get_workouts_action():
@@ -88,7 +88,7 @@ def routine_page():
 def create_routine_action():
     data = request.form
     name = data['routine-name']
-    routines = create_routine(name)
+    routines = create_routine(name, current_user.id)
     return redirect(request.referrer)
 
 @index_views.route('/delete-routine/<int:id>', methods=['GET'])
