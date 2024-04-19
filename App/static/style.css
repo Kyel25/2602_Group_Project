@@ -2,7 +2,8 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-image: url("/static/images/login.jpg");
-  background-size: cover;
+  background-size: cover; 
+  background-position: center; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,9 +44,8 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-  background-color: #333;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
-  color: #fff;
+  background-color: #555; /* Greyish background color */
+  color: #fff; /* Light text color */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -54,8 +54,25 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #ffca28;
+  background-color: #777; /* Slightly lighter shade of greyish background on hover */
 }
+
+.btn {
+  padding: 10px 20px;
+  background-color: #333; /* Dark background color */
+  color: #fff; /* Light text color */
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  margin-top: 10px; /* Adjust margin as needed */
+}
+
+.btn:hover {
+  background-color: #555; /* Greyish background color */
+  transform: scale(1.1);
+}
+
 
 .text-center {
   text-align: center;
