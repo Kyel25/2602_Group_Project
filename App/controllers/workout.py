@@ -8,8 +8,8 @@ def parse_workouts():
         for row in reader:
             workout = Workouts(title=row['Title'],
                 description = row['Desc'],
-                type_ = row['Type'],
-                body_part = row['BodyPart'],
+                type = row['Type'],
+                bodypart = row['BodyPart'],
                 equipment = row['Equipment'],
                 level = row['Level'],
                 rating = row['Rating'],
