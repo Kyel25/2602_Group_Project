@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #1e1e1e;
         }
 
         .navbar {
@@ -37,14 +37,32 @@
 }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px; /* Increased width for the container */
             margin: 0 auto;
             padding: 20px;
+            margin-top: 60px; /* Added margin-top to move the content below the navbar */
+            display: flex; /* Added flex display to arrange items */
+        }
+
+        .routines-container {
+            flex: 1; /* Take up remaining space */
+            margin-right: 20px; /* Space between routines and description */
+        }
+
+        .workout-description {
+            flex: 1; /* Take up remaining space */
+            color: #ffffff; /* White text color */
+            margin-top: 20px; /* Added margin-top to move down */
+            margin-left: 50px; /* Added margin-left to move right */
+            display: flex; /* Center content horizontally and vertically */
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #ffffff;
         }
 
         .routine-form {
@@ -63,6 +81,11 @@
             padding: 8px 16px;
             font-size: 16px;
             cursor: pointer;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* Remove border */
+            border-radius: 5px;
+
         }
 
         .routine-item {
@@ -98,40 +121,50 @@
         <a href="/workout">Add Workout</a>
     </div>
     <div class="container">
-        <h1>{{user.username}}'s Routines</h1>
-        <form class="routine-form" action="/create-routine" method="POST">
-            <input type="text" id="routine-name" name="routine-name" placeholder="Enter routine name" required>
-            <button type="submit">Create Routine</button>
-        </form>
-        <div id="routine-list">
-            {% for routine in routines %}
-            {% if user.id == routine.user_id%}
-            <div class="routine-item">
-                <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
-                <div>Workout 1 - {{routine.work_1}}</div>
-                <div>Workout 2 - {{routine.work_2}}</div>
-                <div>Workout 3 - {{routine.work_3}}</div>
-                <div>Workout 4 - {{routine.work_4}}</div>
-                <div>Workout 5 - {{routine.work_5}}</div>
-                <div>Workout 6 - {{routine.work_6}}</div>
-                <div>Workout 7 - {{routine.work_7}}</div>
-                <div>Workout 8 - {{routine.work_8}}</div>
-                <div>Workout 9 - {{routine.work_9}}</div>
-                <div>Workout 10 - {{routine.work_10}}</div>
-                <div class="routine-item-actions">
-                    <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
-                        <input type="hidden" name="routine-id" value="{{ routine.id }}">
-                        <input type="text" name="new-name" placeholder="Enter new name" required>
-                        <button type="submit">Update</button>
-                    </form>
-                    <form action="/delete-routine/{{ routine.id }}" method="GET">
-                        <button type="submit">Delete</button>
-                    </form>
+        <div class="routines-container">
+            <h1>{{user.username}}'s Routines</h1>
+            <form class="routine-form" action="/create-routine" method="POST">
+                <input type="text" id="routine-name" name="routine-name" placeholder="Enter routine name" required>
+                <button type="submit">Create Routine</button>
+            </form>
+            <div id="routine-list">
+                {% for routine in routines %}
+                {% if user.id == routine.user_id%}
+                <div class="routine-item">
+                    <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
+                    <div>Workout 1 - {{routine.work_1}}</div>
+                    <div>Workout 2 - {{routine.work_2}}</div>
+                    <div>Workout 3 - {{routine.work_3}}</div>
+                    <div>Workout 4 - {{routine.work_4}}</div>
+                    <div>Workout 5 - {{routine.work_5}}</div>
+                    <div>Workout 6 - {{routine.work_6}}</div>
+                    <div>Workout 7 - {{routine.work_7}}</div>
+                    <div>Workout 8 - {{routine.work_8}}</div>
+                    <div>Workout 9 - {{routine.work_9}}</div>
+                    <div>Workout 10 - {{routine.work_10}}</div>
+                    <div class="routine-item-actions">
+                        <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
+                            <input type="hidden" name="routine-id" value="{{ routine.id }}">
+                            <input type="text" name="new-name" placeholder="Enter new name" required>
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/delete-routine/{{ routine.id }}" method="GET">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
+        </div>
+        <div class="workout-description">
+            <!-- Add workout description content here -->
+            <h2>Workout Description</h2>
+            <p>This is where the workout description will appear.</p>
         </div>
     </div>
 </body>
 </html>
+
+
+
