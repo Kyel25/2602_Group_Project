@@ -122,26 +122,26 @@
     </div>
     <div class="container">
         <div class="routines-container">
-            <h1>{{user.username}}'s Routines</h1>
+            <h1>{{ user.username }}'s Routines</h1>
             <form class="routine-form" action="/create-routine" method="POST">
                 <input type="text" id="routine-name" name="routine-name" placeholder="Enter routine name" required>
                 <button type="submit">Create Routine</button>
             </form>
             <div id="routine-list">
                 {% for routine in routines %}
-                {% if user.id == routine.user_id%}
+                {% if user.id == routine.user_id %}
                 <div class="routine-item">
                     <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
-                    <div>Workout 1 - {{routine.work_1}}</div>
-                    <div>Workout 2 - {{routine.work_2}}</div>
-                    <div>Workout 3 - {{routine.work_3}}</div>
-                    <div>Workout 4 - {{routine.work_4}}</div>
-                    <div>Workout 5 - {{routine.work_5}}</div>
-                    <div>Workout 6 - {{routine.work_6}}</div>
-                    <div>Workout 7 - {{routine.work_7}}</div>
-                    <div>Workout 8 - {{routine.work_8}}</div>
-                    <div>Workout 9 - {{routine.work_9}}</div>
-                    <div>Workout 10 - {{routine.work_10}}</div>
+                    <div>Workout 1 - {{ routine.work_1 }} <br> Description: {{ routine.work_1_description }}</div><br>
+                    <div>Workout 2 - {{ routine.work_2 }} <br> Description: {{ routine.work_2_description }}</div><br>
+                    <div>Workout 3 - {{ routine.work_3 }} <br> Description: {{ routine.work_3_description }}</div><br>
+                    <div>Workout 4 - {{ routine.work_4 }} <br> Description: {{ routine.work_4_description }}</div><br>
+                    <div>Workout 5 - {{ routine.work_5 }} <br> Description: {{ routine.work_5_description }}</div><br>
+                    <div>Workout 6 - {{ routine.work_6 }} <br> Description: {{ routine.work_6_description }}</div><br>
+                    <div>Workout 7 - {{ routine.work_7 }} <br> Description: {{ routine.work_7_description }}</div><br>
+                    <div>Workout 8 - {{ routine.work_8 }} <br> Description: {{ routine.work_8_description }}</div><br>
+                    <div>Workout 9 - {{ routine.work_9 }} <br> Description: {{ routine.work_9_description }}</div><br>
+                    <div>Workout 10 - {{ routine.work_10 }} <br> Description: {{ routine.work_10_description }}</div><br>
                     <div class="routine-item-actions">
                         <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
                             <input type="hidden" name="routine-id" value="{{ routine.id }}">
@@ -156,11 +156,6 @@
                 {% endif %}
                 {% endfor %}
             </div>
-        </div>
-        <div class="workout-description">
-            <!-- Add workout description content here -->
-            <h2>Workout Description</h2>
-            <p>This is where the workout description will appear.</p>
         </div>
     </div>
 </body>

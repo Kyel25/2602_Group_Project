@@ -33,32 +33,41 @@ def update_routine(id, new_name):
 
 def add_workout_to_routine(workout_num, routine_id, workout_id):
     if routine_id and workout_id and workout_num is not None:
-        routine = Routines.query.filter_by(id = routine_id).first()
-        workout = Workouts.query.filter_by(id = workout_id).first()
+        routine = Routines.query.filter_by(id=routine_id).first()
+        workout = Workouts.query.filter_by(id=workout_id).first()
         if routine and workout is not None:
             if workout_num == "1":
-                add_workout = routine.work_1 = workout.title
+                routine.work_1 = workout.title
+                routine.work_1_description = workout.description 
             elif workout_num == "2":
-                add_workout = routine.work_2 = workout.title
+                routine.work_2 = workout.title
+                routine.work_2_description = workout.description
             elif workout_num == "3":
-                add_workout = routine.work_3 = workout.title
+                routine.work_3 = workout.title
+                routine.work_3_description = workout.description
             elif workout_num == "4":
-                add_workout = routine.work_4 = workout.title
+                routine.work_4 = workout.title
+                routine.work_4_description = workout.description
             elif workout_num == "5":
-                add_workout = routine.work_5 = workout.title
+                routine.work_5 = workout.title
+                routine.work_5_description = workout.description
             elif workout_num == "6":
-                add_workout = routine.work_6 = workout.title
+                routine.work_6 = workout.title
+                routine.work_6_description = workout.description
             elif workout_num == "7":
-                add_workout = routine.work_7 = workout.title
+                routine.work_7 = workout.title
+                routine.work_7_description = workout.description
             elif workout_num == "8":
-                add_workout = routine.work_8 = workout.title
+                routine.work_8 = workout.title
+                routine.work_8_description = workout.description
             elif workout_num == "9":
-                add_workout = routine.work_9 = workout.title
+                routine.work_9 = workout.title
+                routine.work_9_description = workout.description
             else:
-                add_workout = routine.work_10 = workout.title
+                routine.work_10 = workout.title
+                routine.work_10_description = workout.description
             db.session.commit()
         else:
             return None
     else:
         return 6
-

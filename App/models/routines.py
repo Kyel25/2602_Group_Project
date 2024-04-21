@@ -15,6 +15,16 @@ class Routines(db.Model):
     work_8 = db.Column(db.Integer, nullable=True, unique=False)
     work_9 = db.Column(db.Integer, nullable=True, unique=False)
     work_10 = db.Column(db.Integer, nullable=True, unique=False)
+    work_1_description = db.Column(db.Text, nullable=True)
+    work_2_description = db.Column(db.Text, nullable=True)
+    work_3_description = db.Column(db.Text, nullable=True)
+    work_4_description = db.Column(db.Text, nullable=True)
+    work_5_description = db.Column(db.Text, nullable=True)
+    work_6_description = db.Column(db.Text, nullable=True)
+    work_7_description = db.Column(db.Text, nullable=True)
+    work_8_description = db.Column(db.Text, nullable=True)
+    work_9_description = db.Column(db.Text, nullable=True)
+    work_10_description = db.Column(db.Text, nullable=True)
 
     def __init__(self, name):
         self.name = name
