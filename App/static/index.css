@@ -336,6 +336,17 @@ section.user-info ul li {
   }
 }
 
+.fancy-title {
+  text-align: right; /* Center the text */
+  font-size: 2rem; /* Adjust the font size as needed */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Choose a fancy font */
+  color: #f0f0f0; /* Choose a fancy color */
+  text-transform: uppercase; /* Uppercase the text */
+  letter-spacing: 2px; /* Add some letter spacing for a stylish look */
+  margin-top: 15px; /* Add some top margin for spacing */
+}
+
+
 .text {
   position: absolute;
   top: 50%;
