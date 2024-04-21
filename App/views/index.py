@@ -41,7 +41,8 @@ def init():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    return jsonify('database intialized')
+    parse_workouts()
+    return jsonify(message='database intialized')
 
 #Workouts
 @index_views.route('/workout', methods=['GET'])
