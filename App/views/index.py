@@ -41,7 +41,6 @@ def init():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    parse_workouts()
     print('database intialized')
 
 #Workouts
