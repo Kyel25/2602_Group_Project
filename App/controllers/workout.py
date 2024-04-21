@@ -3,7 +3,7 @@ from App.models import Workouts
 from App.database import db
 
 def parse_workouts():
-    with open('/workspace/2602_Group_Project/megaGymDataset.csv', encoding='unicode_escape') as csvfile:
+    with open('megaGymDataset.csv', encoding='unicode_escape') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=",")
         for row in reader:
             workout = Workouts(title=row['Title'],
