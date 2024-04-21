@@ -38,7 +38,7 @@ def add_workout_to_routine(workout_num, routine_id, workout_id):
         if routine and workout is not None:
             if workout_num == "1":
                 routine.work_1 = workout.title
-                routine.work_1_description = workout.description 
+                routine.work_1_description = workout.description
             elif workout_num == "2":
                 routine.work_2 = workout.title
                 routine.work_2_description = workout.description
@@ -70,4 +70,39 @@ def add_workout_to_routine(workout_num, routine_id, workout_id):
         else:
             return None
     else:
-        return 6
+        return None
+
+def delete_workout_from_routine(routine_id, workout_num):
+    routine = Routines.query.filter_by(id = routine_id).first()
+    if workout_num == "1":
+        routine.work_1 = None
+        routine.work_1_description = None
+    elif workout_num == "2":
+        routine.work_2 = None
+        routine.work_2_description = None
+    elif workout_num == "3":
+        routine.work_3 = None
+        routine.work_3_description = None
+    elif workout_num == "4":
+        routine.work_4 = None
+        routine.work_4_description = None
+    elif workout_num == "5":
+        routine.work_5 = None
+        routine.work_5_description = None
+    elif workout_num == "6":
+        routine.work_6 = None
+        routine.work_6_description = None
+    elif workout_num == "7":
+        routine.work_7 = None
+        routine.work_7_description = None
+    elif workout_num == "8":
+        routine.work_8 = None
+        routine.work_8_description = None
+    elif workout_num == "9":
+        routine.work_9 = None
+        routine.work_9_description = None
+    elif workout_num == "10":
+        routine.work_10 = None
+        routine.work_10_description = None
+    db.session.commit()
+    return None

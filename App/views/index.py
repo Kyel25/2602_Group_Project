@@ -15,7 +15,8 @@ from App.controllers import(
     create_routine,
     delete_routine,
     update_routine,
-    add_workout_to_routine
+    add_workout_to_routine,
+    delete_workout_from_routine
 )
 
 
@@ -112,6 +113,14 @@ def edit_routine_action(id):
     new_name = data.get('new-name')
     update_routine(id, new_name)
     return redirect(request.referrer) 
+
+@index_views.route('/delete-workout/<int:id>', methods=['POST'])
+@jwt_required()
+def delete_workout_from_routine_action(id):
+    data = request.form
+    workout_num = data['workout_num']
+    delete_workout_from_routine(id, workout_num)
+    return redirect(request.referrer)
 
 #BMI
 @index_views.route('/bmi', methods=['GET'])

@@ -126,7 +126,7 @@
             <h2>Instructions</h2>
             <p>Welcome to the Routine Management page!</p>
             <p>To create a new routine, enter the routine name in the input field above and click 'Create Routine'.</p>
-            <p>To add workouts to a routine, click the add workout button at the top of the screen select which routine to add the workout to and the workout slot in that routine.</p>
+            <p>To add workouts to a routine, click the add workout button at the top of the screen, select which routine to add the workout to and the workout slot in that routine.</p>
         </div>
         <div class="routines-container">
             <h1>{{ user.username }}'s Routines</h1>
@@ -150,9 +150,24 @@
                     <div>Workout 9 - {{ routine.work_9 }} <br> Description: {{ routine.work_9_description }}</div><br>
                     <div>Workout 10 - {{ routine.work_10 }} <br> Description: {{ routine.work_10_description }}</div><br>
                     <div class="routine-item-actions">
+                        <form id="remove_workout_from_routine" action="/delete-workout/{{routine.id}}" method="post">
+                            <select id="workout-to-delete" name="workout_num">
+                                <option value="1">Workout 1</option>
+                                <option value="2">Workout 2</option>
+                                <option value="3">Workout 3</option>
+                                <option value="4">Workout 4</option>
+                                <option value="5">Workout 5</option>
+                                <option value="6">Workout 6</option>
+                                <option value="7">Workout 7</option>
+                                <option value="8">Workout 8</option>
+                                <option value="9">Workout 9</option>
+                                <option value="10">Workout 10</option>
+                            </select>
+                            <button id="delete-workout-submit" type="submit">Delete Workout</button>
+                        </form>
                         <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
                             <input type="hidden" name="routine-id" value="{{ routine.id }}">
-                            <input type="text" name="new-name" placeholder="Enter new name" required>
+                            <input type="text" name="new-name" placeholder="Enter routine new name" required>
                             <button type="submit">Update</button>
                         </form>
                         <form action="/delete-routine/{{ routine.id }}" method="GET">
