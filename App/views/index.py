@@ -16,7 +16,8 @@ from App.controllers import(
     delete_routine,
     update_routine,
     add_workout_to_routine,
-    delete_workout_from_routine
+    delete_workout_from_routine,
+    parse_workouts
 )
 
 
@@ -40,7 +41,8 @@ def init():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass')
-    return jsonify(message='db initialized!')
+    parse_workouts()
+    print('database intialized')
 
 #Workouts
 @index_views.route('/workout', methods=['GET'])
