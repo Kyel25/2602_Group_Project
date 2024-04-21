@@ -132,5 +132,7 @@ h1 {
     background-color: #0056b3; /* Darker blue background color on hover */
 }
 
-
-   
+.delete-buttons {
+    background-color: red;
+    color: black;
+}
