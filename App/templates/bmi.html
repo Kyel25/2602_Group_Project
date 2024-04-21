@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="../static/bmi.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/routine">My Routines</a>
+        <a href="/workout" class="nav-link">Browse Workouts</a>
+        <a href="/result" class="nav-link">Calorie Calculator</a>
+        <a href="/logout" margin-right: >Logout</a>
+    </div>
+
+    <div class="container mt-5">
+        <h2>BMI Calculator</h2>
+        <form action="/calculate-bmi-route" method="POST">
+            <div class="form-group">
+                <label for="weight">Weight (in pounds)</label>
+                <input type="number" class="form-control" id="weight" name="weight" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (in inches) 1 foot = 12 inches</label>
+                <input type="number" class="form-control" id="height" name="height" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate BMI</button>
+        </form>
+
+        <div id="results">
+            {% if bmi is defined %}
+                <h2>Calculated BMI:</h2>
+                <p>{{ bmi }}</p>
+                <h2>BMI Results:</h2>
+                <p>{{ category }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h2>BMI Categories</h2>
+            <p>
+                BMI (Body Mass Index) is a measure of body fat based on height and weight. Here's how the categories work:
+            </p>
+            <ul>
+                <li><strong>Underweight:</strong> BMI less than 18.5 - Consider consulting a healthcare professional.</li>
+                <li><strong>Normal weight:</strong> BMI between 18.5 and 24.9 - Generally considered a healthy range.</li>
+                <li><strong>Overweight:</strong> BMI between 25 and 29.9 - May indicate the need to consider weight loss.</li>
+                <li><strong>Obese:</strong> BMI of 30 or greater - Considered a higher risk for various health issues.</li>
+            </ul>
+            <p>
+                It's important to note that BMI is a screening tool and does not directly measure body fat or overall health. Individual circumstances and other factors should also be considered.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

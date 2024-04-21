@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine Management</title>
+    <link rel="stylesheet" href="../static/routine.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/workout" class="nav-link">Browse Workouts</a>
+        <a href="/result" class="nav-link">Calorie Calculator</a>
+        <a href="/bmi" class="nav-link">BMI Calculator</a>
+        <a href="/logout" margin-right: >Logout</a>
+    </div>
+    <div class="container">
+        <div class="instructions-container">
+            <h2>Instructions</h2>
+            <p>Welcome to the Routine Management page!</p>
+            <p>To create a new routine, enter the routine name in the input field above and click 'Create Routine'.</p>
+            <p>To add workouts to a routine, click the add workout button at the top of the screen, select which routine to add the workout to and the workout slot in that routine.</p>
+        </div>
+        <div class="routines-container">
+            <h1>{{ user.username }}'s Routines</h1>
+            <form class="routine-form" action="/create-routine" method="POST">
+                <input type="text" id="routine-name" name="routine-name" placeholder="Enter routine name" required>
+                <button type="submit">Create Routine</button>
+            </form>
+            <div id="routine-list">
+                {% for routine in routines %}
+                {% if user.id == routine.user_id %}
+                <div class="routine-item">
+                    <div class="routine-item-name" id="routine-name-{{ routine.id }}">{{ routine.name }}</div>
+                    <div>Workout 1 - {{ routine.work_1 }} <br> Description: {{ routine.work_1_description }}</div><br>
+                    <div>Workout 2 - {{ routine.work_2 }} <br> Description: {{ routine.work_2_description }}</div><br>
+                    <div>Workout 3 - {{ routine.work_3 }} <br> Description: {{ routine.work_3_description }}</div><br>
+                    <div>Workout 4 - {{ routine.work_4 }} <br> Description: {{ routine.work_4_description }}</div><br>
+                    <div>Workout 5 - {{ routine.work_5 }} <br> Description: {{ routine.work_5_description }}</div><br>
+                    <div>Workout 6 - {{ routine.work_6 }} <br> Description: {{ routine.work_6_description }}</div><br>
+                    <div>Workout 7 - {{ routine.work_7 }} <br> Description: {{ routine.work_7_description }}</div><br>
+                    <div>Workout 8 - {{ routine.work_8 }} <br> Description: {{ routine.work_8_description }}</div><br>
+                    <div>Workout 9 - {{ routine.work_9 }} <br> Description: {{ routine.work_9_description }}</div><br>
+                    <div>Workout 10 - {{ routine.work_10 }} <br> Description: {{ routine.work_10_description }}</div><br>
+                    <div class="routine-item-actions">
+                        <form id="remove_workout_from_routine" action="/delete-workout/{{routine.id}}" method="post">
+                            <select id="workout-to-delete" name="workout_num">
+                                <option value="1">Workout 1</option>
+                                <option value="2">Workout 2</option>
+                                <option value="3">Workout 3</option>
+                                <option value="4">Workout 4</option>
+                                <option value="5">Workout 5</option>
+                                <option value="6">Workout 6</option>
+                                <option value="7">Workout 7</option>
+                                <option value="8">Workout 8</option>
+                                <option value="9">Workout 9</option>
+                                <option value="10">Workout 10</option>
+                            </select>
+                            <button id="delete-workout-submit" type="submit">Delete Workout</button>
+                        </form>
+                        <form id="edit-routine-form-{{ routine.id }}" action="/edit-routine/{{ routine.id }}" method="POST">
+                            <input type="hidden" name="routine-id" value="{{ routine.id }}">
+                            <input type="text" name="new-name" placeholder="Enter routine new name" required>
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/delete-routine/{{ routine.id }}" method="GET">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

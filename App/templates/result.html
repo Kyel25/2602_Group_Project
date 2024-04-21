@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <link rel="stylesheet" href="../static/result.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/routine">My Routines</a>
+        <a href="/workout" class="nav-link">Browse Workouts</a>
+        <a href="/bmi" class="nav-link">BMI Calculator</a>
+        <a href="/logout" margin-right: >Logout</a>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Calorie Calculator</h2>
+        <form action="/calculate" method="post">
+            <div class="form-group">
+                <label for="weight">Weight (in pounds)</label>
+                <input type="number" class="form-control" id="weight" name="weight" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (in inches)</label>
+                <input type="number" class="form-control" id="height" name="height" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <select class="form-control" id="sex" name="sex" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="activity_level">Activity Level</label>
+                <select class="form-control" id="activity_level" name="activity_level" required>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="lightly_active">Lightly Active</option>
+                    <option value="moderately_active">Moderately Active</option>
+                    <option value="very_active">Very Active</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        <hr style="border-top: 1px solid #ffffff; margin: 30px 0;">
+
+        <div id="results">
+            {% if calories is defined %}
+            <h2>Calculated Results:</h2>
+            <p>BMR (Basal Metabolic Rate): {{ bmr }}</p>
+            <p>Daily Calories Needed To Maintain Weight: {{ calories }}</p>
+        
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Goal</th>
+                        <th>Calories Needed</th>
+                        <th>Change for Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if calories is defined %}
+                    {% with mild_loss_calories, normal_loss_calories, extreme_loss_calories = calculate_daily_calories_loss(bmr, activity_level) %}
+                    <tr>
+                        <td>Mild Weight Loss</td>
+                        <td>{{ mild_loss_calories }}</td>
+                        <td>Decrease by 9% (0.25 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Weight Loss</td>
+                        <td>{{ normal_loss_calories }}</td>
+                        <td>Decrease by 17% (0.5 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Extreme Weight Loss</td>
+                        <td>{{ extreme_loss_calories }}</td>
+                        <td>Decrease by 34% (1 kg per week)</td>
+                    </tr>
+                    {% endwith %}
+                    {% endif %}
+            
+                    {% if calories is defined %}
+                    {% with mild_gain_calories, normal_gain_calories, extreme_gain_calories = calculate_daily_calories_gain(bmr, activity_level) %}
+                    <tr>
+                        <td>Mild Weight Gain</td>
+                        <td>{{ mild_gain_calories }}</td>
+                        <td>Increase by 9% (0.25 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Weight Gain</td>
+                        <td>{{ normal_gain_calories }}</td>
+                        <td>Increase by 17% (0.5 kg per week)</td>
+                    </tr>
+                    <tr>
+                        <td>Extreme Weight Gain</td>
+                        <td>{{ extreme_gain_calories }}</td>
+                        <td>Increase by 34% (1 kg per week)</td>
+                    </tr>
+                    {% endwith %}
+                    {% endif %}
+                </tbody>
+            </table>
+            
+        {% endif %}
+        
+        </div>
+    </div>
+</body>
+</html>

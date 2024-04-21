@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <title>Filter Workouts</title>
+    <link rel="stylesheet" href="../static/workout.css">
+
+</head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<body>
+    <div class="navbar">
+        <a href="/home">Home</a>
+        <a href="/routine" class="nav-link">My Routines</a>
+        <a href="/result" class="nav-link">Calorie Calculator</a>
+        <a href="/bmi" class="nav-link">BMI Calculator</a>
+        <a href="/logout" margin-right: >Logout</a>
+    </div>
+    <div class="container">
+        <h1>Filter Workouts</h1>
+
+        <div class="search-bar">
+            <input type="text" id="workout-search" placeholder="Search by Workout Title">
+            <button onclick="searchWorkouts()">Search</button>
+        </div>
+
+        <div class="filter-options">
+            <select id="level-filter">
+                <option value="">Filter by Level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+            <select id="body-part-filter">
+                <option value="">Filter by Body Part</option>
+                <option value="Chest">Chest</option>
+                <option value="Abdominals">Abdominals</option>
+                <option value="Adductors">Adductors</option>
+                <option value="Calves">Calves</option>
+                <option value="Forearms">Forearms</option>
+                <option value="Glutes">Glutes</option>
+                <option value="Hamstrings">Hamstrings</option>
+                <option value="Lats">Lats</option>
+                <option value="Lower Back">Lower Back</option>
+                <option value="Middle Back">Middle Back</option>
+                <option value="Traps">Traps</option>
+                <option value="Neck">Neck</option>
+                <option value="Quadriceps">Quadriceps</option>
+                <option value="Shoulders">Shoulders</option>
+                <option value="Triceps">Triceps</option>
+            </select>
+            <select id="type-filter">
+                <option value="">Filter by Type</option>
+                <option value="Strength">Strength</option>
+                <option value="Cardio">Cardio</option>
+                <option value="Stretching">Stretching</option>
+                <option value="Plyometrics">Plyometrics</option>
+                <option value="Strongman">Strongman</option>
+                <option value="Powerlifting">Powerlifting</option>
+                <option value="Olympic Weightlifting">Olympic Weightlifting</option>
+            </select>
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!-- Workout items will be displayed here -->
+      
+        <div id="workout-items">
+            {% for workout in workouts %}
+            <div class="workout-item">
+                <div class="workout-content">
+                    <div class="workout-item-title">{{ workout.title }}</div>
+                    <div class="workout-item-description">{{ workout.description }}</div>
+                    <div class="workout-item-meta">Type: {{ workout.type }} | Body Part: {{ workout.bodypart }} | Equipment: {{ workout.equipment }} | Level: {{ workout.level }}</div>
+                </div>
+                <div class="add-to-workout-container">
+                    <form id="add-workout-form" action="/add-workout/{{workout.id}}" method="post">
+                        <select id="workout-to-add" name="routine_id">
+                            {%for routine in user.routines%}
+                            <option value="{{routine.id}}">{{routine.name}}</option>
+                            {%endfor%}
+                        </select>
+                        <select id="workout-to-edit" name="workout_num">
+                            <option value="1">Workout 1</option>
+                            <option value="2">Workout 2</option>
+                            <option value="3">Workout 3</option>
+                            <option value="4">Workout 4</option>
+                            <option value="5">Workout 5</option>
+                            <option value="6">Workout 6</option>
+                            <option value="7">Workout 7</option>
+                            <option value="8">Workout 8</option>
+                            <option value="9">Workout 9</option>
+                            <option value="10">Workout 10</option>
+                        </select>
+                        <button class="add-to-routine-button">Add to Routine</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+    </div>
+
+    <script src="../static/workout.js"></script>
+
+</body>
+</html>

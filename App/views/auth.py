@@ -7,6 +7,8 @@ from App.controllers import (
     login
 )
 
+from App.models import workouts
+
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')
 
 
@@ -28,9 +30,10 @@ def identify_page():
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+    response = redirect(url_for('index_views.home_page'))
     if not token:
         flash('Bad username or password given'), 401
+        return redirect(url_for('index_views.login_page'))
     else:
         flash('Login Successful')
         set_access_cookies(response, token) 
@@ -38,10 +41,17 @@ def login_action():
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
-    response = redirect(request.referrer) 
+    response = redirect(url_for('index_views.login_page')) 
     flash("Logged Out!")
     unset_jwt_cookies(response)
     return response
+
+# @auth_views.route('/routine', methods=['GET'])   doesnt work
+# def display_routines():
+#     response = redirect(url_for('index_views.routine_page'))
+#     return response
+
+
 
 '''
 API Routes

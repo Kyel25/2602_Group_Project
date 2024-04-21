@@ -1,13 +1,172 @@
-{% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Planner</title>
+  <link rel="stylesheet" href="../static/index.css">
 
-{{ super() }}
 
-{% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-{% endblock %}
+</head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<body>
+  <header>
+    <div class="container">
+      <h1 class="fancy-title">Kenetic Tempo</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/workout" class="nav-link">Browse Workouts</a></li>
+          <li><a href="/routine" class="nav-link">My Routines</a></li>
+          <li><a href="/result" class="nav-link">Calorie Calculator</a></li>
+          <li><a href="/bmi" class="nav-link">BMI Calculator</a></li>
+          <li><button class="settings-btn material-icons" onclick="toggleSettings()">perm_identity</button></li>
+        </ul>
+      </nav>
+    </div>    
+  </header>
+  
+  <div id="settings-popup" class="settings-popup">
+    <div class="settings-content">
+      <span class="close-btn" onclick="toggleSettings()">×</span> <!-- Close button -->
+      <span class="username">Currently logged in as : {{current_user.username}}</span>
+      <a href="/logout" class="btn">Logout</a>
+    </div>
+  </div>
+  
+  <main>
+    <div class="slideshow-container">
+<!-- Slide 1 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-1" checked>
+<label for="slide-1" class="slide-label"></label>
+<div class="mySlides slide-1">
+  <div class="slide" style="background-image: url('../static/images/image\ 1.jpg');">
+    <!-- <div class="text">Text for Slide 1</div> -->
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-2">
+<label for="slide-2" class="slide-label"></label>
+<div class="mySlides slide-2">
+  <div class="slide" style="background-image: url('../static/images/image\ 2.jpg');">
+    <!-- <div class="text">Text for Slide 2</div> -->
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-3">
+<label for="slide-3" class="slide-label"></label>
+<div class="mySlides slide-3">
+  <div class="slide" style="background-image: url('../static/images/image\ 3.jpg');">
+    <!-- <div class="text">Text for Slide 3</div> -->
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<input class="slide-radio" type="radio" name="slides" id="slide-4">
+<label for="slide-4" class="slide-label"></label>
+<div class="mySlides slide-4">
+  <div class="slide" style="background-image: url('../static/images/image\ 4.jpg');">
+    <!-- <div class="text">Text for Slide 4</div> -->
+  </div>
+</div>
+    
+      <!-- Next and previous buttons -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    
+      <!-- The dots/circles -->
+      <div class="dots">
+        <label class="dot" for="slide-1"></label>
+        <label class="dot" for="slide-2"></label>
+        <label class="dot" for="slide-3"></label>
+        <label class="dot" for="slide-4"></label>
+      </div>
+    </div>
+
+    <section id="browse" class="card">
+      <a href="/workout">
+        <img src="https://media.30seconds.com/tip/lg/Fitness-Resolutions-for-the-New-Year-Heres-My-Challenge-to-17581-77e808a8cc-1544463097.jpg" alt="Browse Workouts">
+      </a>
+      <div class="card-content">
+        <h2>Browse Workouts</h2>
+        <p>Explore a variety of workouts to add to your routine. Whether you're looking for cardio, strength training, or flexibility exercises, you'll find something suitable here.</p>
+        <a href="/workout" class="btn">Browse Workouts</a>
+      </div>
+    </section>
+    
+    <section id="create" class="card">
+      <a href="/routine">
+        <img src="https://t4.ftcdn.net/jpg/01/79/81/77/360_F_179817756_QzTocli57q9G6a1Oe7kJtoMS5dNMU8cl.jpg" alt="Create Routine">
+      </a>
+      <div class="card-content">
+        <h2>My Routines</h2>
+        <p>Create your personalized workout routine by adding workouts. Mix and match different exercises to target specific muscle groups or achieve your fitness goals.</p>
+        <a href="/routine" class="btn">My Routines</a>
+      </div>
+    </section>
+    
+    <section id="view-edit" class="card">
+      <a href="/result">
+        <img src="https://paramountacceptance.com/wp-content/uploads/2021/11/blog-images-3.png" alt="View/Edit Routine">
+      </a>
+      <div class="card-content">
+        <h2>Calorie Calculator</h2>
+        <p>Utilize our calorie calculator to precisely determine your daily caloric requirements, facilitating a clearer path to achieving your fitness objectives with greater ease.</p>
+        <a href="/result" class="btn">Calculate</a>
+      </div>
+    </section>
+    
+    <section id="bmi" class="card">
+      <a href="/bmi">
+        <img src="https://img.freepik.com/premium-photo/unyielding-determination-obese-man-lifting-weights-with-focused-resolve_937226-548.jpg" alt="BMI Calculator">
+      </a>
+      <div class="card-content">
+        <h2>BMI Calculator</h2>
+        <p>Calculate your Body Mass Index (BMI) to assess your body composition and track your health progress.</p>
+        <a href="/bmi" class="btn">Calculate BMI</a>
+      </div>
+    </section>
+    
+
+    
+<div class="quotes-container">
+  <div class="one_fourth">
+    <p class="quote">&ldquo;The only bad workout is the one that didn't happen.&rdquo;
+      <br>
+      <em>―Unknown</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;Strength does not come from physical capacity. It comes from an indomitable will.&rdquo;
+      <br>
+      <em>―Mahatma Gandhi</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;The last three or four reps is what makes the muscle grow. This area of pain divides a champion from someone who is not a champion.&rdquo;
+      <br>
+      <em>―Arnold Schwarzenegger</em>
+    </p>
+  </div>
+  <div class="one_fourth">
+    <p class="quote">&ldquo;Fitness is not about being better than someone else. It's about being better than you used to be.&rdquo;
+      <br>
+      <em>―Unknown</em>
+    </p>
+  </div>
+</div>
+  </main>
+
+  <footer>
+    <p>&copy; INFO 2602 Group Project</p>
+  </footer>
+
+  <script src="../static/index.js"></script>
+
+
+
+</body>
+</html>
